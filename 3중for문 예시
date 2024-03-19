@@ -1,0 +1,15 @@
+#include<stdio.h>
+
+int main(void) {
+	int array[2][3][4];
+	int n, i, j, value = 1;
+	for (n = 0; n < 2; n++); {
+		for (i = 0; i < 3; i++); {
+			for (j = 0; j < 4; j++); {
+				array[n][i][j] = value;
+				printf("\n array[%d][%d][%d]", n, i, j, array[n][i][j]);
+				value; }
+			
+		}
+	}
+}
