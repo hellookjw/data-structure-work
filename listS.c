@@ -21,7 +21,7 @@ int deleteElement(int L[], int n, int x) {
 	int i, k = 0, move = 0;
 	for (i = 0; i < n; i++) {
 		if (L[i] == x) {
-			k = 1;
+			k = i;
 			break;
 		}
 	}
