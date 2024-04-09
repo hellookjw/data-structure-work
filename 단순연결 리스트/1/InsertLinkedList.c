@@ -1,31 +1,31 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <string.h>
-#include "LinkedList.h"
+#include "InsertLinkedList.h"
 
 linkedList_h* createLinkedList_h(void) {
 	linkedList_h* L;
-	L = (linkedList_h*)malloc(sizeof(linkedList_h*));
+	L = (linkedList_h*)malloc(sizeof(linkedList_h));
 	L->head = NULL;
 	return L;
 }
-void freeLinkedList_h(linkedList_h*) {
+void freeLinkedList_h(linkedList_h* L) {
 	listNode* p;
 	while (L->head != NULL) {
-		p = L->head = L->head->link;
+		p = L->head;
+		L->head = L->head->link;
 		free(p);
 		p = NULL;
 	}
 }
-void printList(linkedList_h*) {
+void printList(linkedList_h* L) {
 	listNode* p;
-	printf("L = (");
+	printf("L=(");
 	p = L->head;
 	while (p != NULL) {
 		printf("%s", p->data);
 		p = p->link;
-		if (p != NULL)printf(", ");
-
+		if (p != NULL) printf(", ");
 	}
 	printf(") \n");
 }
@@ -33,7 +33,7 @@ void insertFirstNode(linkedList_h* L, char* x) {
 	listNode* newNode;
 	newNode = (listNode*)malloc(sizeof(listNode));
 	strcpy(newNode->data, x);
-	newNode->link = L->head;
+	newNode -> link = L->head;
 	L->head = newNode;
 }
 void insertMiddleNode(linkedList_h* L, listNode* pre, char* x) {
@@ -53,7 +53,7 @@ void insertMiddleNode(linkedList_h* L, listNode* pre, char* x) {
 		pre->link = newNode;
 	}
 }
-void insertLastNode(linkedList_h* L, char* x) {
+void insertLastNode(linkedList_h * L, char* x) {
 	listNode* newNode;
 	listNode* temp;
 	newNode = (listNode*)malloc(sizeof(listNode));
@@ -67,49 +67,3 @@ void insertLastNode(linkedList_h* L, char* x) {
 	while (temp->link != NULL)temp = temp->link;
 	temp->link = newNode;
 }
-void deleteNode(linkedList_h* L, listNode* p) {
-	listNode* pre;
-	if (L->head == NULL)return;
-	if (L->head->link == NULL) {
-		free(L->head);
-		L->head = NULL;
-		return;
-	}
-	else if (p == NULL)return;
-	else {
-		pre = L->head;
-		while (pre->link != p) {
-			pre = pre->link;
-		}
-		pre->link = p->link;
-		free(p);
-	}
-}
-listNode* searchNode(linkedList_h* L, char* x) {
-	listNode* temp;
-	temp = L->head;
-	while (temp != NULL) {
-		if (strcmp(temp->data, x) == 0)return temp;
-		else temp = temp->link;
-	}
-	return temp;
-}
-void reverse(linkedList_h* L) {
-	listNode* p;
-	listNode* q;
-	listNode* r;
-
-	p = L->head;
-	q = NULL;
-	r = NULL;
-
-	while (p != NULL) {
-		r = q;
-		q = p;
-		p = p->link;
-		q->link = r;
-
-	}
-	L->head = q;
-}
-
