@@ -1,84 +1,83 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define STACK_SIZE 100
+#include "stackS.h"
 
-typedef int element;
-
-element stack[STACK_SIZE];
-int top = 0;
+int top = -1;
 
 int isEmpty() {
-    return top == 0;
+    if (top == -1)return 1;
+    else return 0;
 }
 
 int isFull() {
-    return top == STACK_SIZE;
+    if (top == STACK_SIZE - 1)return 1;
+    else return 0;
 }
 
-void printStack() {
-    int i;
-    printf("\n STACK [");
-    for (i = 0; i < top; i++) { 
-        printf(" %d", stack[i]);
-    }
-    printf(" ]");
-}
 
-void push(int item) {
+void push(element item) {
     if (isFull()) {
         printf("\n\n stack is FULL!\n");
-        return;
+        return ;
     }
-    else
-        stack[top++] = item; 
+    else stack[++top] = item;
 }
 
 element pop() {
     if (isEmpty()) {
         printf("\n\n stack is empty!\n");
-        return -1; // 빈 스택일 때 반환할 값
+        return 0; // 빈 스택일 때 반환할 값
     }
     else
-        return stack[--top]; 
+        return stack[top--];
 }
 
 element peek() {
     if (isEmpty()) {
         printf("\n\n stack is empty!\n");
-        exit(1);
+        return 0;
     }
     else
-        return stack[top - 1]; 
+        return stack[top];
+}
+
+void printStack() {
+    int i;
+    printf("\n STACK [");
+    for (i = 0; i <= top; i++) {
+        printf(" %d", stack[i]);
+    }
+    printf(" ]");
 }
 
 int main() {
     element item;
-    top = 0; 
+    top = -1; // top 초기화
     printf("\n** 순차 스택 연산 **\n");
 
-    printfStack(); 
+    printStack(); // 초기 상태 출력
 
-    push(1); 
+    push(1);
     printfStack();
-    push(2); 
+    push(2);
     printfStack();
     push(3);
     printfStack();
 
-    item = peek(); 
+    item = peek();
     printf("\npeek => %d", item);
 
-    item = pop(); 
+    item = pop();
     printf("\n\t pop => %d", item);
     printfStack();
 
-    item = pop(); 
+    item = pop();
     printf("\n\t pop => %d", item);
     printfStack();
 
-    item = pop(); 
+    item = pop();
     printf("\n\t pop => %d", item);
     printfStack();
-    
+
     return 0;
 }
