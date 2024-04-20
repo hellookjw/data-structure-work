@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef int element;
-
-typedef struct stackNode {
-    element data;
-    struct stackNode* link;
-} stackNode;
-
-stackNode* top;
+#include "stackL.h"
 
 int isEmpty() // 함수 이름 수정
 {
@@ -31,7 +23,7 @@ element pop() {
 
     if (isEmpty()) // 함수 이름 수정
     {
-        printf("\n\n 스택이 비어있습니다!\n");
+        printf("\n\n stack is empty!\n");
         return 0;
     }
     else
@@ -47,12 +39,12 @@ element peek()
 {
     if (isEmpty()) // 함수 이름 수정
     {
-        printf("\n\n 스택이 비어있습니다!\n");
+        printf("\n\n stack is empty!\n");
         return 0;
     }
     else
     {
-        return top->data;
+        return (top->data);
     }
 }
 
@@ -60,7 +52,7 @@ void printStack()
 {
     stackNode* p = top;
     printf("\n STACK [");
-    while (p != NULL)
+    while (p)
     {
         printf(" %d", p->data);
         p = p->link;
@@ -68,26 +60,3 @@ void printStack()
     printf(" ]");
 }
 
-int main()
-{
-    element item;
-    top = NULL;
-    printf("\n** 연결 스택 연산 **\n");
-    printStack(); // 처음 스택 출력
-    push(1); printStack();
-    push(2); printStack();
-    push(3); printStack();
-
-    item = peek(); printStack();
-    printf("peek => %d", item);
-
-    item = pop(); printStack();
-    printf("\t pop => %d", item);
-
-    item = pop(); printStack();
-    printf("\t pop => %d", item);
-
-    item = pop(); printStack();
-    printf("\t pop => %d", item);
-    return 0;
-}
